@@ -1,0 +1,12 @@
+{
+  "name": "P2_productos",
+  "author": "IWEB-UPM",
+  "license": "GNU",
+  "version": "0.1.0",
+  "info": {
+      "githubURL": "IWEB-UPM/P2_productos",
+      "serverUrl": "https://autocorector.dit.upm.es/",
+      "courseId": "395",
+      "assignmentId": "5340633"
+  }
+}
