@@ -1,6 +1,6 @@
 import {render, fireEvent, waitForElementToBeRemoved, screen, act} from '@testing-library/react'
-import App from '../../p_react_bajopruebas/src/App';
-import {mockdata} from "../utils7/products2.js";
+import App from '../../src/App';
+import {mockdata} from "../utils/products2.js";
 import {MemoryRouter, BrowserRouter} from 'react-router-dom';
 
 const mytestconfig = {

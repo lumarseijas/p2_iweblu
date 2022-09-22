@@ -1,9 +1,9 @@
 import {render, fireEvent, waitFor, screen, act} from '@testing-library/react'
-import App from '../../p_react_bajopruebas/src/App';
-import Header from '../../p_react_bajopruebas/src/Header';
-import Search from '../../p_react_bajopruebas/src/Search';
+import App from '../../src/App';
+import Header from '../../src/Header';
+import Search from '../../src/Search';
 import user_info from '../../user.json';
-import {mockdata} from "../utils7/products.js";
+import {mockdata} from "../utils/products.js";
 import {MemoryRouter, BrowserRouter} from 'react-router-dom';
 
 
