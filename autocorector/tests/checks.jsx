@@ -1,7 +1,7 @@
 import {render, fireEvent, waitFor, screen, act} from '@testing-library/react'
 import App from '../../src/App';
 import Header from '../../src/Header';
-import Search from '../../src/Search';
+import SearchPage from '../../src/SearchPage';
 import user_info from '../../user.json';
 import {mockdata} from "../utils/products.js";
 import {MemoryRouter, BrowserRouter} from 'react-router-dom';
@@ -18,7 +18,7 @@ const mytestconfig = {
 jest.setTimeout(10000);
 
 
-jest.mock('../../p_react_bajopruebas/src/config/config', () => ( {
+jest.mock('../../src/config/config', () => ( {
   __esModule: true,
   default: mytestconfig  
 } ));
@@ -75,13 +75,13 @@ test(JSON.stringify(testinfo), () => {
 
 
 testinfo = {
-  name: "La aplicación tiene un componente Search, con al menos un h2, un input y un button",
+  name: "La aplicación tiene un componente SearchPage, con al menos un h2, un input y un button",
   score: 1,
-  msg_ok: "Componente Search encontrado y con h2, input y button correctos",
-  msg_error: "El componente Search no se ha encontrado o no tiene el h2, input y button correctos"
+  msg_ok: "Componente SearchPage encontrado y con h2, input y button correctos",
+  msg_error: "El componente SearchPage no se ha encontrado o no tiene el h2, input y button correctos"
 }
 test(JSON.stringify(testinfo), () => {
-  render(<BrowserRouter><Search theproducts={mockdata.products} /></BrowserRouter>);
+  render(<BrowserRouter><SearchPage theproducts={mockdata.products} /></BrowserRouter>);
   const catalogo = document.querySelector('#catalogo');
   expect(catalogo).toBeInTheDocument();
   expect(catalogo).toHaveTextContent(/Catálogo/i);
@@ -96,13 +96,13 @@ test(JSON.stringify(testinfo), () => {
 
 
 testinfo = {
-  name: "La aplicación tiene un componente Search que renderiza los productos que recibe",
+  name: "La aplicación tiene un componente SearchPage que renderiza los productos que recibe",
   score: 1,
-  msg_ok: "Componente Search encontrado productos renderizados",
-  msg_error: "El componente Search no se ha encontrado o no renderiza correctamente los productos"
+  msg_ok: "Componente SearchPage encontrado productos renderizados",
+  msg_error: "El componente SearchPage no se ha encontrado o no renderiza correctamente los productos"
 }
 test(JSON.stringify(testinfo), () => {
-  render(<BrowserRouter><Search theproducts={mockdata.products} /></BrowserRouter>);
+  render(<BrowserRouter><SearchPage theproducts={mockdata.products} /></BrowserRouter>);
   const productos = document.querySelectorAll('#catalogoul li');
   expect(productos.length).toBe(37);
 });
@@ -115,7 +115,7 @@ testinfo = {
   msg_error: "El input de la aplicación NO funciona correctamente o NO filtra al pulsar el botón"
 }
 test(JSON.stringify(testinfo), () => {
-  render(<BrowserRouter><Search theproducts={mockdata.products} /></BrowserRouter>);
+  render(<BrowserRouter><SearchPage theproducts={mockdata.products} /></BrowserRouter>);
   const theinput = document.querySelector('#filtro');
   expect(theinput).toBeInTheDocument();
   const buscabtn = document.querySelector('#buscador');
@@ -135,7 +135,7 @@ testinfo = {
   msg_error: "Selector de categorías de productos NO encontrado o NO está bien relleno"
 }
 test(JSON.stringify(testinfo), () => {
-  render(<BrowserRouter><Search theproducts={mockdata.products} /></BrowserRouter>);
+  render(<BrowserRouter><SearchPage theproducts={mockdata.products} /></BrowserRouter>);
   const theselector = document.querySelector('#selector');
   expect(theselector).toBeInTheDocument();
   const selectoroptions = document.querySelectorAll('#selector option');
@@ -152,7 +152,7 @@ testinfo = {
   msg_error: "El selector de categorías NO funciona correctamente"
 }
 test(JSON.stringify(testinfo), () => {
-  render(<BrowserRouter><Search theproducts={mockdata.products} /></BrowserRouter>);
+  render(<BrowserRouter><SearchPage theproducts={mockdata.products} /></BrowserRouter>);
   const theselector = document.querySelector('#selector');
   expect(theselector).toBeInTheDocument();
   fireEvent.change(theselector, {target: {value: "automotive"}})

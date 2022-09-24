@@ -12,7 +12,7 @@ const mytestconfig = {
 
 jest.setTimeout(10000);
 
-jest.mock('../../p_react_bajopruebas/src/config/config', () => ( {
+jest.mock('../../src/config/config', () => ( {
   __esModule: true,
   default: mytestconfig  
 } ));
