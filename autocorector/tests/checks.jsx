@@ -4,8 +4,9 @@ import Header from '../../src/Header';
 import SearchPage from '../../src/SearchPage';
 import user_info from '../../user.json';
 import {mockdata} from "../utils/products.js";
+import {mockdata2} from "../utils/products2.js";
+import {mockdata as studentmockproducts} from "../../src/constants/products";
 import {MemoryRouter, BrowserRouter} from 'react-router-dom';
-
 
 
 const mytestconfig = {
@@ -16,7 +17,6 @@ const mytestconfig = {
 };
 
 jest.setTimeout(10000);
-
 
 jest.mock('../../src/config/config', () => ( {
   __esModule: true,
@@ -59,33 +59,30 @@ test(JSON.stringify(testinfo), () => {
 });
 
 testinfo = {
-  name: "La aplicación, mientras carga, muestra una imagen de un spinner con una clase 'spinner'",
+  name: "La aplicación, mientras carga, muestra un spinner con una clase 'spinner' y un id 'loading'",
   score: 1,
   msg_ok: "spinner encontrado",
-  msg_error: "Imagen de spinner NO encontrado mientras la aplicación carga"
+  msg_error: "spinner NO encontrado mientras la aplicación carga"
 }
 test(JSON.stringify(testinfo), () => {
   render(<BrowserRouter><App /></BrowserRouter>);
-  const spinner = document.querySelector('.spinner');
+  const spinner = document.querySelector('#loading');
   expect(spinner).toBeInTheDocument();
-  expect(spinner.tagName).toBe('IMG');
+  const spinnerbyclass = document.querySelector('.spinner');
+  expect(spinnerbyclass).toBeInTheDocument();
   const catalogo = document.querySelector('#catalogo');
   expect(catalogo).not.toBeInTheDocument();
 });
 
 
 testinfo = {
-  name: "La aplicación tiene un componente SearchPage, con al menos un h2, un input y un button",
+  name: "La aplicación tiene un componente SearchPage, con al menos un input y un button",
   score: 1,
-  msg_ok: "Componente SearchPage encontrado y con h2, input y button correctos",
-  msg_error: "El componente SearchPage no se ha encontrado o no tiene el h2, input y button correctos"
+  msg_ok: "Componente SearchPage encontrado y con input y button correctos",
+  msg_error: "El componente SearchPage no se ha encontrado o no tiene el input y button correctos"
 }
 test(JSON.stringify(testinfo), () => {
   render(<BrowserRouter><SearchPage theproducts={mockdata.products} /></BrowserRouter>);
-  const catalogo = document.querySelector('#catalogo');
-  expect(catalogo).toBeInTheDocument();
-  expect(catalogo).toHaveTextContent(/Catálogo/i);
-  expect(catalogo.tagName).toBe('H2');
   const theinput = document.querySelector('#filtro');
   expect(theinput).toBeInTheDocument();
   expect(theinput.tagName).toBe('INPUT');
@@ -103,13 +100,13 @@ testinfo = {
 }
 test(JSON.stringify(testinfo), () => {
   render(<BrowserRouter><SearchPage theproducts={mockdata.products} /></BrowserRouter>);
-  const productos = document.querySelectorAll('#catalogoul li');
+  const productos = document.querySelectorAll('#productosresultados .unproducto');
   expect(productos.length).toBe(37);
 });
 
 
 testinfo = {
-  name: "La aplicación maneja el valor del input filtra los resultados al pulsar el button",
+  name: "La aplicación maneja el valor del input y filtra los resultados por su título al pulsar el button",
   score: 1,
   msg_ok: "El input de la aplicación funciona correctamente y filtra al pulsar el botón",
   msg_error: "El input de la aplicación NO funciona correctamente o NO filtra al pulsar el botón"
@@ -123,14 +120,14 @@ test(JSON.stringify(testinfo), () => {
   fireEvent.change(theinput, {target: {value: "moto"}})
   expect(theinput).toHaveValue("moto");
   fireEvent.click(buscabtn);
-  const productos = document.querySelectorAll('#catalogoul li');
+  const productos = document.querySelectorAll('#productosresultados .unproducto');
   expect(productos.length).toBe(4);
 });
 
 
 testinfo = {
-  name: "La aplicación tiene un selector de categorías de productos y está relleno correctamente",
-  score: 1,
+  name: "La aplicación tiene un selector de categorías de productos y está relleno correctamente para mockdata",
+  score: 0.5,
   msg_ok: "Selector de categorías de productos encontrado y bien relleno",
   msg_error: "Selector de categorías de productos NO encontrado o NO está bien relleno"
 }
@@ -146,6 +143,23 @@ test(JSON.stringify(testinfo), () => {
 
 
 testinfo = {
+  name: "La aplicación tiene un selector de categorías de productos y está relleno correctamente para mockdata2",
+  score: 0.5,
+  msg_ok: "Selector de categorías de productos encontrado y bien relleno",
+  msg_error: "Selector de categorías de productos NO encontrado o NO está bien relleno"
+}
+test(JSON.stringify(testinfo), () => {    
+  render(<BrowserRouter><SearchPage theproducts={mockdata2.products} /></BrowserRouter>);
+  const theselector2 = document.querySelector('#selector');
+  expect(theselector2).toBeInTheDocument();
+  const selectoroptions2 = document.querySelectorAll('#selector option');
+  expect(selectoroptions2.length).toBe(7);
+  expect([...selectoroptions2].map((x)=>x.value)).toEqual(
+    expect.arrayContaining(["All", "tops", "womens-dresses", "womens-shoes", "mens-shirts", "mens-shoes", "mens-watches"]));
+});
+
+
+testinfo = {
   name: "La aplicación tiene un selector de categorías de productos y filtra al seleccionar una categoría",
   score: 1,
   msg_ok: "El selector de categorías funciona correctamente",
@@ -157,7 +171,7 @@ test(JSON.stringify(testinfo), () => {
   expect(theselector).toBeInTheDocument();
   fireEvent.change(theselector, {target: {value: "automotive"}})
 
-  const productos = document.querySelectorAll('#catalogoul li');
+  const productos = document.querySelectorAll('#productosresultados .unproducto');
   expect(productos.length).toBe(5);
 });
 
@@ -183,7 +197,7 @@ test(JSON.stringify(testinfo), async () => {
   await waitFor(async () => {
     const titulo = document.querySelector('#titulo');
     expect(titulo).toBeInTheDocument();
-    expect(titulo).toHaveTextContent("Samsung Universe 9");
+    expect(titulo).toHaveTextContent(studentmockproducts.products[3].title);
   
     const divlocation = document.querySelector('#divlocation');
     expect(divlocation).toBeInTheDocument();
