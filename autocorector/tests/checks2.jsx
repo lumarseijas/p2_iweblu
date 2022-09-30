@@ -1,6 +1,6 @@
 import {render, fireEvent, waitForElementToBeRemoved, screen, act} from '@testing-library/react'
 import App from '../../src/App';
-import {mockdata} from "../utils/products2.js";
+import {mockdata2} from "../utils/products2.js";
 import {MemoryRouter, BrowserRouter} from 'react-router-dom';
 
 const mytestconfig = {
@@ -39,17 +39,19 @@ let testinfo = {
 test(JSON.stringify(testinfo), async () => {
   global.fetch = jest.fn(() => Promise.resolve({
     status: 200,
-    json: () => Promise.resolve(mockdata)
+    json: () => Promise.resolve(mockdata2)
   }));
 
   render(<MemoryRouter initialEntries={["/"]}>
     <App />
   </MemoryRouter>);
+  //run the setTimeout so the loading spinner is removed from the UX
+  
 
   await waitForElementToBeRemoved(await document.querySelector('#loading'), { timeout: 8000 })
 
-  const productos = document.querySelectorAll('#catalogoul li');
-  expect(productos.length).toBe(35);
+  const productos = document.querySelectorAll('#productosresultados .unproducto');
+  expect(productos.length).toBe(25);
   const theinput = document.querySelector('#filtro');
   expect(theinput).toBeInTheDocument();
   const buscabtn = document.querySelector('#buscador');
