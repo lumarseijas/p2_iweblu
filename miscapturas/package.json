@@ -21,7 +21,7 @@
     "githubURL": "IWEB-UPM/P2_productos",
     "serverUrl": "https://aat.dit.upm.es/",
     "courseId": "396",
-    "assignmentId": "492"
+    "assignmentId": "41278"
   },
   "scripts": {
     "start": "react-scripts start",
