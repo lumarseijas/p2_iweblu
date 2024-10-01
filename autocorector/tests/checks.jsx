@@ -38,7 +38,7 @@ afterAll(() => {
 
 let testinfo = {
     name: "La aplicación tiene un componente Header con el logo y el mensaje de bienvenida con tu nombre",
-    score: 1,
+    score: 0.5,
     msg_ok: "Header encontrada",
     msg_error: "Header no encontrada o no es como se esperaba, revise el enunciado"
 }
@@ -77,7 +77,7 @@ test(JSON.stringify(testinfo), () => {
 
 testinfo = {
   name: "La aplicación tiene un componente SearchPage, con al menos un input y un button",
-  score: 1,
+  score: 0.5,
   msg_ok: "Componente SearchPage encontrado y con input y button correctos",
   msg_error: "El componente SearchPage no se ha encontrado o no tiene el input y button correctos"
 }
@@ -173,6 +173,24 @@ test(JSON.stringify(testinfo), () => {
 
   const productos = document.querySelectorAll('#productosresultados .unproducto');
   expect(productos.length).toBe(5);
+});
+
+testinfo = {
+  name: "La aplicación utiliza parámetros en la ruta para guardar la categoría seleccionada (con useSearchParams)",
+  score: 1,
+  msg_ok: "UseSearchParams funciona correctamente",
+  msg_error: "UseSearchParams NO funciona correctamente"
+}
+test(JSON.stringify(testinfo), () => {
+  render(<BrowserRouter><SearchPage theproducts={mockdata.products} /></BrowserRouter>);
+  const theselector = document.querySelector('#selector');
+  expect(theselector).toBeInTheDocument();
+  fireEvent.change(theselector, {target: {value: "sunglasses"}})
+
+  const divlocation = document.querySelector('#divsearch');
+  expect(divlocation).toBeInTheDocument();
+  expect(divlocation).toHaveTextContent("Category sunglasses");
+
 });
 
 
