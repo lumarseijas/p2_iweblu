@@ -1,6 +1,6 @@
-export default function SearchPage() {
+export default function SearchPage(props) {
   
-  
+  const theproducts = props.theproducts;
   
     return (
     <div>

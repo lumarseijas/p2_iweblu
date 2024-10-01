@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Header from "./Header"
 import SearchPage from './SearchPage';
 import './App.css'
-
+import {mockdata} from './constants/products'
 function App() {
   const [loading, setLoading] = useState(true);
 
