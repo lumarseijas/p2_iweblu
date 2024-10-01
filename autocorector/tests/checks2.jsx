@@ -45,8 +45,9 @@ test(JSON.stringify(testinfo), async () => {
   render(<MemoryRouter initialEntries={["/"]}>
     <App />
   </MemoryRouter>);
-  
   //run the setTimeout so the loading spinner is removed from the UX
+  
+
   await waitForElementToBeRemoved(await document.querySelector('#loading'), { timeout: 8000 })
 
   const productos = document.querySelectorAll('#productosresultados .unproducto');

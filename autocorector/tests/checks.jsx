@@ -1,4 +1,4 @@
-import {render, fireEvent, waitFor, waitForElementToBeRemoved, screen, act} from '@testing-library/react'
+import {render, fireEvent, waitFor, screen, act} from '@testing-library/react'
 import App from '../../src/App';
 import Header from '../../src/Header';
 import SearchPage from '../../src/SearchPage';
@@ -191,24 +191,25 @@ test(JSON.stringify(testinfo), async () => {
   render(<MemoryRouter initialEntries={["/products/3"]}>
     <App />
   </MemoryRouter>);
+  //run the setTimeout so the loading spinner is removed from the UX
+  act(()=>jest.runAllTimers());
 
-  await waitForElementToBeRemoved(await document.querySelector('#loading'), { timeout: 8000 })
-
-  const titulo = document.querySelector('#titulo');
-  expect(titulo).toBeInTheDocument();
-  expect(titulo).toHaveTextContent(studentmockproducts.products[3].title);
-
-  const divlocation = document.querySelector('#divlocation');
-  expect(divlocation).toBeInTheDocument();
-  expect(divlocation).toHaveTextContent("/products/3");
-
-  const divproductid = document.querySelector('#divproductid');
-  expect(divproductid).toBeInTheDocument();
-  expect(divproductid).toHaveTextContent("3");
-
-  const volver = document.querySelector('#volver');
-  expect(volver).toBeInTheDocument();    
+  await waitFor(async () => {
+    const titulo = document.querySelector('#titulo');
+    expect(titulo).toBeInTheDocument();
+    expect(titulo).toHaveTextContent(studentmockproducts.products[3].title);
   
+    const divlocation = document.querySelector('#divlocation');
+    expect(divlocation).toBeInTheDocument();
+    expect(divlocation).toHaveTextContent("/products/3");
+
+    const divproductid = document.querySelector('#divproductid');
+    expect(divproductid).toBeInTheDocument();
+    expect(divproductid).toHaveTextContent("3");
+
+    const volver = document.querySelector('#volver');
+    expect(volver).toBeInTheDocument();    
+  });
 });
 
 
@@ -224,13 +225,14 @@ test(JSON.stringify(testinfo), async () => {
     <App />
   </MemoryRouter>);
   //run the setTimeout so the loading spinner is removed from the UX
-  await waitForElementToBeRemoved(await document.querySelector('#loading'), { timeout: 8000 });
+  act(()=>jest.runAllTimers());
 
-  const info = document.querySelector('#info');
-  expect(info).toBeInTheDocument();
-  expect(info).toHaveTextContent("Ruta no encontrada");
+  await waitFor(async () => {
+    const info = document.querySelector('#info');
+    expect(info).toBeInTheDocument();
+    expect(info).toHaveTextContent("Ruta no encontrada");
 
-  const volver = document.querySelector('#volver');
-  expect(volver).toBeInTheDocument();    
-  
+    const volver = document.querySelector('#volver');
+    expect(volver).toBeInTheDocument();    
+  });
 });
