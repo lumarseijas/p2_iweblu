@@ -4,8 +4,9 @@ import SearchPage from './SearchPage';
 import './App.css'
 import {mockdata} from './constants/products'
 function App() {
-  const [loading, setLoading] = useState(true);
+  //const [loading, setLoading] = useState(true);
 
+ 
   return (
     
       <div id="main">
