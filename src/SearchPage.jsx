@@ -1,21 +1,25 @@
+import { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 export default function SearchPage(props) {
 
     //const theproducts = props.theproducts;
     const [productos, setProductos] = useState(props.theproducts);
-    function filtrar() {
+    const [filtro, setFiltro] = useState('')
+    //function filtrar() {
         // setProductos(props.theproducts.filter)
 
-    }
+   // }
 
     const handleBuscar = () => {
-
-
-    }
+        const resultados = theproducts.filter(producto =>
+            producto.Title.toLowerCase().includes(filtro.toLowerCase())
+          );
+          setProductos(resultados);
+        };
     return (
         <div>
             <h2 id="catálogo">Catálogo</h2>
-            <input type="text" id="filtro" />
+            <input type="text" id="filtro" onChange={(e) => setFiltro(e.target.value)} />
             <button id="buscador" onClick={handleBuscar}>Buscar</button>
             <div id="productosresultados">
                 <ul>
