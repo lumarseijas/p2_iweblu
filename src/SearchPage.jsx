@@ -10,8 +10,9 @@ export default function SearchPage(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const categoriaSeleccionada = searchParams.get('category') || 'All';
 
-    const categoriasUnicas = Array.from(new Set(props.theproducts.map(producto => producto.category)));
-
+    const categoriasUnicas = Array.from(new Set(props.theproducts.map(producto => producto.category))); //dice que props.theproducts.map no es una funcion: 
+    //pq props.theproducts en el momento de llamar a la funcion no es un array
+    
     //filtrar productos según la búsqueda y la categoría:
     useEffect(() => {
         const filtroTexto = document.getElementById('filtro').value.toLowerCase();
