@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
+import { useSearchParams } from 'react-router-dom';
+import Location from './Location';
 
 export default function SearchPage(props) {
     const [productos, setProductos] = useState(props.theproducts);
     //const [filtroTexto, setFiltroTexto] = useState('');
-    
-    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('All');
+    //const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('All');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const categoriaSeleccionada = searchParams.get('category') || 'All';
 
-    
     const categoriasUnicas = Array.from(new Set(props.theproducts.map(producto => producto.category)));
 
-    //filtrar productos según la búsqueda y la categoría
+    //filtrar productos según la búsqueda y la categoría:
     useEffect(() => {
         const filtroTexto = document.getElementById('filtro').value.toLowerCase();
         const productosFiltrados = props.theproducts.filter((producto) => {
@@ -28,13 +30,15 @@ export default function SearchPage(props) {
         }));
     };
 
+   
+
     return (
         <div>
             <h2 id="catálogo">Catálogo</h2>
             <input type="text" id="filtro" />
             <button id="buscador" onClick={handleBuscar}>Buscar</button>
 
-            <select id="selector" value={categoriaSeleccionada} onChange={(e) => setCategoriaSeleccionada(e.target.value)}>
+            <select id="selector" value={categoriaSeleccionada} onChange={(e) => setSearchParams({category: e.target.value})}>
                 <option value="All">All</option>
                 {categoriasUnicas.map((cat, index) => (
                     <option key={index} value={cat}>{cat}</option>
@@ -52,6 +56,7 @@ export default function SearchPage(props) {
                     ))}
                 </ul>
             </div>
+            <Location />
         </div>
     );
 }
