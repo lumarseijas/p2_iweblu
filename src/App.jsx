@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route } from "react-router-dom"
 import config from './config/config.js';
 import Header from "./Header"
@@ -11,20 +10,22 @@ import { mockdata } from './constants/products'
 import './App.css'
 
 function App() {
-
-  //no me sale bien lo de las rutas
+  const [productos, setProductos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   return (
 
     <div id="main">
-      <Header />
-      <div id="loading">
-        <img
-          className="spinner"
-          src={process.env.PUBLIC_URL + "/spinner.gif"}
 
-        />
+      <div id="loading">
+        <img className="spinner" src={process.env.PUBLIC_URL + "/spinner.gif"} />
       </div>
+      <Header />
+      <Routes>
+        <Route path="/" element={<SearchPage theproducts={productos} />} />
+        <Route path="/products/:productId" element={<Producto product={productos}/>}/>
+        <Route path="*" element={<NoMatch />} />
+      </Routes>
 
     </div>
   )
