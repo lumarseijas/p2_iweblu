@@ -1,12 +1,13 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import Location from './Location';
+import { mockdata } from './constants/products'
 
-export default function Producto({ props }) {
+export default function Producto(props) {
 
     const { productId } = useParams();
     const navigate = useNavigate()
 
-    const producto = props.product[productId]; //pruduct? como es?
+    const producto = mockdata.products[productId] ; 
 
     const handleVolver = () => {
         navigate('/');
