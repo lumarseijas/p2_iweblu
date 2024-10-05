@@ -8,22 +8,16 @@ export default function SearchPage(props) {
     const [productos, setProductos] = useState(props.theproducts);
     
 //Ctrl + K seguido de Ctrl + C para comentar, y Ctrl + K seguido de Ctrl + U para descomentar
-//      Extraer categorías únicas usando reduce
- 
-//    function filtrar(productos, filtro) {
-//         return productos.filter(producto =>
-//             producto.Title.toLowerCase().includes(filtro.toLowerCase())
-//         )
-//     }
+
 //     function filtrarCategorias(productos, categoria) {
 //         return productos.filter(producto => producto.Category === categoria);
 //     };
 
     const handleBuscar = () => {
         const filtroTexto = document.getElementById('filtro').value.toLowerCase();
-       // const categoriaSeleccionada = document.getElementById('selector').value;
-        
-          setProductos(filtroTexto); 
+        setProductos(props.theproducts.filter((producto) => {
+            return producto.title.toLowerCase().includes(filtroTexto);
+        }));
     };
     return (
         <div>
