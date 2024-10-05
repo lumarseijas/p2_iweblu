@@ -6,18 +6,11 @@ export default function SearchPage(props) {
 
     //const theproducts = props.theproducts;
     const [productos, setProductos] = useState(props.theproducts);
-    const [filtro, setFiltro] = useState('')
-    const [categoria, setCategoria] = useState('All'); 
+    
 //Ctrl + K seguido de Ctrl + C para comentar, y Ctrl + K seguido de Ctrl + U para descomentar
 //      Extraer categorías únicas usando reduce
-//   const categorias = theproducts.reduce((acc, producto) => {
-//     if (!acc.includes(producto.Category)) {
-//       acc.push(producto.Category);
-//     }
-//     return acc;
-//   }, []);
-
-//     function filtrar(productos, filtro) {
+ 
+//    function filtrar(productos, filtro) {
 //         return productos.filter(producto =>
 //             producto.Title.toLowerCase().includes(filtro.toLowerCase())
 //         )
@@ -27,18 +20,17 @@ export default function SearchPage(props) {
 //     };
 
     const handleBuscar = () => {
-        let productosFiltrados = filtrar(theproducts, filtro);
-        productosFiltrados = filtrarCategorias(productosFiltrados, categoria);
-        setProductos(productosFiltrados);
+        const filtroTexto = document.getElementById('filtro').value.toLowerCase();
+       // const categoriaSeleccionada = document.getElementById('selector').value;
+        
+          setProductos(filtroTexto); 
     };
     return (
         <div>
             <h2 id="catálogo">Catálogo</h2>
-            <input type="text" id="filtro" onChange={(e) => setFiltro(e.target.value)} />
-
-
-
+            <input type="text" id="filtro" />
             <button id="buscador" onClick={handleBuscar}>Buscar</button>
+
             <div id="productosresultados">
                 <ul>
                     {productos.map((producto, index) =>
