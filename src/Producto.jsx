@@ -1,11 +1,11 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import Location from './Location'; 
 
-export default function ProductPage({ props }) {
-
-    const { productId } = useParams(); 
+export default function Producto({ theproducts }) {
+    const { productId } = useParams(); // Obtener productId desde la URL
     const navigate = useNavigate();
-    
+    const producto = theproducts[productId]; // Encontrar producto por posición
+
     const handleVolver = () => {
         navigate('/'); // Volver a la página principal
     };
