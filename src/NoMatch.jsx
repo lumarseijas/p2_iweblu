@@ -1,6 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 export default function NoMatch(props) {
     const navigate = useNavigate();
-    
+
     const handleVolver = () => {
         navigate('/');
     };
