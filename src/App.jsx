@@ -13,26 +13,28 @@ function App() {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+    const fetchProductos = async () => {
     if (config.use_server) {
-      setLoading(true);
-      fetch(config.server_url)
-        .then(response => response.json())
-        .then(data => {
-          setProductos(data.products);
-          setLoading(false);
-        })
-        .catch(error => {
-          console.error('Error al cargar datos:', error);
-          setLoading(false);
-        });
+      try {
+        const response = await fetch(config.server_url);
+        const data = await response.json();
+        setProductos(data.products);
+      } catch (error) {
+        console.error('Error al cargar datos:', error);
+      } finally {
+        setLoading(false);
+      }
     }
-  }, [config.use_server, config.server_url]);
+  };
+
+  fetchProductos();
+}, [config.use_server, config.server_url]);
 
   return (
     
     <div id="main">
       {loading && ( <div id="loading">
-        <img className="spinner" src={process.env.PUBLIC_URL + "/spinner.gif"} />
+        <img className="spinner" src={"/spinner.gif"} />
         </div>
       )
     }
