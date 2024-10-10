@@ -7,7 +7,7 @@ export default function Producto(props) {
     const { productId } = useParams();
     const navigate = useNavigate()
 
-    const producto = mockdata.products[productId] ; 
+    const producto = mockdata.products[productId-1] ; 
 
     const handleVolver = () => {
         navigate('/');
